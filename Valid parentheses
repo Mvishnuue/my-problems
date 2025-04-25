@@ -1,0 +1,20 @@
+def is_valid_parentheses(s):
+    stack = []
+    mapping = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        if char in mapping.values():  # Opening brackets
+            stack.append(char)
+        elif char in mapping:  # Closing brackets
+            if not stack or stack[-1] != mapping[char]:
+                return False
+            stack.pop()
+        else:
+            # Ignore non-bracket characters, or return False if needed
+            continue
+
+    return not stack
+
+# Example usage
+expr = "({[]})"
+print("Valid" if is_valid_parentheses(expr) else "Invalid")
