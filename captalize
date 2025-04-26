@@ -1,0 +1,10 @@
+a=int(input("Enter num of strings"))
+print("Enter the Strings")
+Strings=[]
+for i in range(a):
+    Strings.append(input())
+    
+for j in Strings:
+    x=j[0].upper()
+    y=j[1:].lower()
+    print(x+y)
