@@ -1,0 +1,13 @@
+numbers = [10,11,23,25,27,90,33,45,67,24,18,95]
+for num in numbers:
+    if num &1 == 1:
+        print(f"{num} is Even.")
+    else:
+        print(f"{num} is Odd.")
+
+
+    
+    
+
+
+    
