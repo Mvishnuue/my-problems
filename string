@@ -1,0 +1,8 @@
+str1=input("enter anything")
+l=str1.split()
+s=[]
+for i in range(len(l)):
+    c=l[i]
+    s.append(c[::-1])
+print(s)
+
