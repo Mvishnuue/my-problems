@@ -1,0 +1,7 @@
+import qrcode
+text="Hi students today is day 10... hope u doing goood"
+r=qrcode.QRCode()
+r.add_data(text)
+r.make(fit=True)
+img=r.make_image(fill_color="Black",back_color="White")
+img.save("DAY10.png")
