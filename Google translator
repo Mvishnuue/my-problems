@@ -1,0 +1,9 @@
+from googletrans import Translator
+translator = Translator()
+
+text = "Hello, how are you?"
+translated = translator.translate(text, src='en', dest='hi')  
+
+
+print(f"Original: {text}")
+print(f"Translated: {translated.text}")
