@@ -1,0 +1,43 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONObject;
+
+public class RestApiClient {
+    public static void main(String[] args) {
+        try {
+            // Example: Open-Meteo free API for current weather
+            String apiUrl = "https://api.open-meteo.com/v1/forecast?latitude=17.385&longitude=78.4867&current_weather=true";
+
+            // Create URL object
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Read response
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            // Parse JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            JSONObject currentWeather = jsonResponse.getJSONObject("current_weather");
+
+            // Display data in structured format
+            System.out.println("🌍 Weather Data (Hyderabad, India)");
+            System.out.println("Temperature: " + currentWeather.getDouble("temperature") + " °C");
+            System.out.println("Windspeed: " + currentWeather.getDouble("windspeed") + " km/h");
+            System.out.println("Weather Code: " + currentWeather.getInt("weathercode"));
+            System.out.println("Time: " + currentWeather.getString("time"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
