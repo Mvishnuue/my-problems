@@ -1,0 +1,82 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class FileHandlingUtility {
+
+    // Method to write data to a file
+    public static void writeFile(String fileName, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(content);
+            System.out.println("✅ File written successfully.");
+        } catch (IOException e) {
+            System.out.println("❌ Error writing to file: " + e.getMessage());
+        }
+    }
+
+    // Method to read data from a file
+    public static void readFile(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            System.out.println("📖 File content:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Error reading file: " + e.getMessage());
+        }
+    }
+
+    // Method to append data to a file
+    public static void appendFile(String fileName, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(content);
+            writer.newLine();
+            System.out.println("✅ Content appended successfully.");
+        } catch (IOException e) {
+            System.out.println("❌ Error appending to file: " + e.getMessage());
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String fileName = "example.txt"; // File name
+
+        while (true) {
+            System.out.println("\n===== File Handling Utility =====");
+            System.out.println("1. Write to File");
+            System.out.println("2. Read from File");
+            System.out.println("3. Append to File");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter content to write: ");
+                    String writeContent = sc.nextLine();
+                    writeFile(fileName, writeContent);
+                    break;
+
+                case 2:
+                    readFile(fileName);
+                    break;
+
+                case 3:
+                    System.out.print("Enter content to append: ");
+                    String appendContent = sc.nextLine();
+                    appendFile(fileName, appendContent);
+                    break;
+
+                case 4:
+                    System.out.println("🚪 Exiting program. Goodbye!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("❌ Invalid choice. Try again.");
+            }
+        }
+    }
+}
