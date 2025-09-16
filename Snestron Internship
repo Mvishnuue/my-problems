@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Employee class
+class Employee {
+    private int empId;
+    private String name;
+    private double basicSalary;
+    private double allowance;
+    private double deduction;
+
+    public Employee(int empId, String name, double basicSalary, double allowance, double deduction) {
+        this.empId = empId;
+        this.name = name;
+        this.basicSalary = basicSalary;
+        this.allowance = allowance;
+        this.deduction = deduction;
+    }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double calculateNetSalary() {
+        return (basicSalary + allowance) - deduction;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee ID: " + empId +
+                "\nName: " + name +
+                "\nBasic Salary: " + basicSalary +
+                "\nAllowance: " + allowance +
+                "\nDeduction: " + deduction +
+                "\nNet Salary: " + calculateNetSalary();
+    }
+}
+
+// Payroll Management System
+public class PayrollManagementSystem {
+    private static ArrayList<Employee> employees = new ArrayList<>();
+    private static Scanner sc = new Scanner(System.in);
+
+    public static void addEmployee() {
+        System.out.print("Enter Employee ID: ");
+        int id = sc.nextInt();
+        sc.nextLine(); // consume newline
+        System.out.print("Enter Employee Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Basic Salary: ");
+        double basic = sc.nextDouble();
+        System.out.print("Enter Allowance: ");
+        double allowance = sc.nextDouble();
+        System.out.print("Enter Deduction: ");
+        double deduction = sc.nextDouble();
+
+        Employee emp = new Employee(id, name, basic, allowance, deduction);
+        employees.add(emp);
+        System.out.println("✅ Employee added successfully!\n");
+    }
+
+    public static void displayEmployees() {
+        if (employees.isEmpty()) {
+            System.out.println("⚠ No employees found!\n");
+            return;
+        }
+        for (Employee emp : employees) {
+            System.out.println(emp);
+            System.out.println("----------------------------");
+        }
+    }
+
+    public static void main(String[] args) {
+        int choice;
+        do {
+            System.out.println("\n=== Employee Payroll Management System ===");
+            System.out.println("1. Add Employee");
+            System.out.println("2. Display Employees");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addEmployee();
+                    break;
+                case 2:
+                    displayEmployees();
+                    break;
+                case 3:
+                    System.out.println("Exiting... Thank you!");
+                    break;
+                default:
+                    System.out.println("❌ Invalid choice! Try again.");
+            }
+        } while (choice != 3);
+    }
+}
